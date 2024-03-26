@@ -1,4 +1,5 @@
 import flet as ft
+import controller as ct
 
 class View(object):
     def __init__(self, page: ft.Page):
@@ -27,8 +28,27 @@ class View(object):
         )
 
         # Add your stuff here
+        #Riga 1
+        self._menuLingua = ft.Dropdown(width=200,label="Scegli una Lingua",
+                                       options=[ft.dropdown.Option("italian"),
+                                                ft.dropdown.Option("english"),
+                                                ft.dropdown.Option("spanish")],
+                                       )
 
-        self.page.add([])
+        row1 = ft.Row([self._menuLingua])
+
+        #Riga 2
+        self._tipoRicerca = ft.Dropdown(width=150, label="Tipo di ricerca", options=[
+                                        ft.dropdown.Option("Default"),
+                                        ft.dropdown.Option("Linear"),
+                                        ft.dropdown.Option("Dichotomic")])
+        self._testoUtente = ft.TextField(label="Inserisci il testo", width=500)
+        #self._stampa = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
+        self._correzione = ft.ElevatedButton("Avvia correzione", width=200, on_click=self.__controller.handleSentence)
+        row2 = ft.Row([self._tipoRicerca, self._testoUtente, self._correzione])
+
+
+        self.page.add(row1, row2)
 
         self.page.update()
 
@@ -51,3 +71,13 @@ class View(object):
         #     ft.colors.GREY_900 if self.page.theme_mode == ft.ThemeMode.DARK else ft.colors.GREY_300
         # )
         self.page.update()
+
+    """"def handle_sentence(self):
+        tupla = self.__controller.handleSentence(self._testoUtente.value, self._menuLingua.value, self._tipoRicerca.value)
+        self._stampa = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
+        self._stampa.controls.append(ft.Text(f"Frase inserita: {self._testoUtente.value}"))
+        self._stampa.controls.append(ft.Text(f"Parole errate: {tupla}"))
+        self._stampa.controls.append(ft.Text(f"Tempo richiesto per la ricerca: {tupla}"))
+        row3 = ft.Row([self._stampa])
+    """""
+

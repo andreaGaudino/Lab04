@@ -8,8 +8,14 @@ class SpellChecker:
         self._multiDic = md.MultiDictionary()
         self._view = view
 
-    def handleSentence(self, txtIn, language, modality):
+    def handleSentence(self, e):
+        txtIn = self._view._testoUtente.value
+        modality = self._view._tipoRicerca.value
+        language = self._view._menuLingua.value
         txtIn = replaceChars(txtIn.lower())
+        self._stampa = ft.ListView()
+
+
 
         words = txtIn.split()
         paroleErrate = " - "
@@ -22,7 +28,12 @@ class SpellChecker:
                     if not parola.corretta:
                         paroleErrate = paroleErrate + str(parola) + " - "
                 t2 = time.time()
-                return paroleErrate, t2 - t1
+                self._stampa.controls.append(ft.Text(f"Frase inserita: {self._view._testoUtente.value}"))
+                self._stampa.controls.append(ft.Text(f"Le parole errate sono: {paroleErrate}"))
+                self._stampa.controls.append(ft.Text(f"Tempo impiegato: {t2-t1}"))
+                self._view.page.add(self._stampa)
+
+
 
             case "Linear":
                 t1 = time.time()
@@ -31,7 +42,11 @@ class SpellChecker:
                     if not parola.corretta:
                         paroleErrate = paroleErrate + str(parola) + " "
                 t2 = time.time()
-                return paroleErrate, t2 - t1
+                self._stampa.controls.append(ft.Text(f"Frase inserita: {self._view._testoUtente.value}"))
+                self._stampa.controls.append(ft.Text(f"Le parole errate sono: {paroleErrate}"))
+                self._stampa.controls.append(ft.Text(f"Tempo impiegato: {t2 - t1}"))
+                self._view.page.add(self._stampa)
+
 
             case "Dichotomic":
                 t1 = time.time()
@@ -40,7 +55,11 @@ class SpellChecker:
                     if not parola.corretta:
                         paroleErrate = paroleErrate + str(parola) + " - "
                 t2 = time.time()
-                return paroleErrate, t2 - t1
+                self._stampa.controls.append(ft.Text(f"Frase inserita: {self._view._testoUtente.value}"))
+                self._stampa.controls.append(ft.Text(f"Le parole errate sono: {paroleErrate}"))
+                self._stampa.controls.append(ft.Text(f"Tempo impiegato: {t2 - t1}"))
+                self._view.page.add(self._stampa)
+
             case _:
                 return None
 
